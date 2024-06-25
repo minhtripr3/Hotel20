@@ -1,0 +1,54 @@
+﻿@model Hotel20.Models.Category
+@{
+    ViewBag.Title = "Chi Tiết";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .details-container {
+        border: 1px solid #ccc;
+        padding: 20px;
+        border-radius: 5px;
+        margin-bottom: 20px;
+        height: 240px;
+    }
+
+        .details-container h4 {
+            font-size: 28px; /* Tăng kích thước chữ tiêu đề */
+            margin-bottom: 20px;
+            font-weight: bold; /* In đậm cho tiêu đề */
+        }
+
+
+
+    .action-links {
+        margin-top: 20px;
+    }
+</style>
+
+<h2>Chi Tiết</h2>
+
+<div class="details-container">
+    <h4>Danh Mục</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-3" style="font-size: 25px; font-weight: bold; color: #e82574">
+            Mã Category:
+        </dt>
+        <dd class="col-sm-9" style="font-size: 18px; ">
+            @Html.DisplayFor(m => m.IDCate)
+        </dd>
+
+        <dt class="col-sm-3" style="font-size: 25px; font-weight: bold; color: #e82574; ">
+            Tên Category:
+        </dt>
+        <dd class="col-sm-9" style="font-size: 18px;">
+            @Html.DisplayFor(m => m.NameCate)
+        </dd>
+    </dl>
+</div>
+
+<div class="action-links">
+    @Html.ActionLink("Chỉnh Sửa", "Edit", new { id = Model.Id }, new { @class = "btn btn-primary" })|
+    @Html.ActionLink("Quay Lại Danh Sách", "Index", null, new { @class = "btn btn-secondary" })
+</div>

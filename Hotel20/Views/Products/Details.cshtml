@@ -1,0 +1,507 @@
+﻿@model Hotel20.Models.Room
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_details.cshtml";
+}
+
+
+
+<head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.0.0/fonts/remixicon.css"
+          rel="stylesheet" />
+
+
+
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+
+
+    <style>
+
+        .pd-details-tab {
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 4px;
+        }
+
+        .tab-item .nav {
+            display: inline-flex;
+            justify-content: space-between;
+            padding: 0;
+            list-style: none;
+            border-bottom: 1px solid #ddd;
+        }
+
+            .tab-item .nav li {
+                margin: 0;
+            }
+
+            .tab-item .nav a {
+                display: block;
+                padding: 10px 20px;
+                width: 100%;
+                text-align: center;
+                text-decoration: none;
+                color: #333;
+                border: 1px solid #ddd;
+                border-bottom: none;
+                border-radius: 4px 4px 0 0;
+                background-color: #fff;
+            }
+
+                .tab-item .nav a.active {
+                    background-color: #007bff;
+                    color: #fff;
+                }
+
+        .tab-item-content {
+            border-radius: 0 0 4px 4px;
+            background-color: #fff;
+        }
+
+        .property-more-table {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+            .property-more-table table {
+                width: 48%;
+                border-collapse: collapse;
+            }
+
+            .property-more-table td {
+                padding: 10px;
+                border: 1px solid #ddd;
+            }
+
+        .property-contactus {
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #fff;
+            margin-top: 20px;
+        }
+
+        .agent-desc img {
+            width: 100%;
+            border-radius: 4px;
+        }
+
+        .agent-desc {
+            margin-bottom: 20px;
+        }
+
+        .agent-title h5 {
+            margin: 10px 0 5px 0;
+        }
+
+        .agent-social a {
+            margin-right: 10px;
+            color: #333;
+            text-decoration: none;
+        }
+
+            .agent-social a:hover {
+                color: #007bff;
+            }
+
+        .agent-contact-form input,
+        .agent-contact-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .agent-contact-form .site-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 4px;
+            border: none;
+        }
+
+        .detail_sp {
+            display: flex; /* Sử dụng flexbox để căn chỉnh các phần tử con */
+            align-items: flex-start; /* Căn phần tử con theo đỉnh */
+        }
+
+        .detail_img {
+            flex: 0 0 200px; /* Phần tử này có độ rộng cố định là 200px */
+            margin-right: 20px; /* Khoảng cách phải giữa các phần tử */
+        }
+
+        .detail_nd {
+            flex: 1; /* Phần tử này sẽ mở rộng để lấp đầy phần còn lại */
+        }
+
+        .detail_ndct {
+            margin-top: 0; /* Loại bỏ khoảng cách trên đầu đoạn văn */
+        }
+
+        .detail_soLuong {
+            margin-bottom: 10px; /* Khoảng cách dưới cho phần số lượng */
+        }
+
+        .btn_product {
+            margin-right: 10px; /* Khoảng cách bên phải giữa các nút */
+        }
+
+        .info_sanPham {
+            display: flex; /* Sử dụng flexbox để các phần tử con ở cùng một hàng */
+            border: 1px solid #ccc; /* Viền 1px với màu xám nhạt */
+        }
+
+        .ttsp {
+            flex: 1; /* Phần tử này sẽ chiếm hết không gian còn lại của flex container */
+            text-align: center; /* Căn giữa nội dung của các đoạn văn bản */
+            padding: 10px; /* Khoảng cách giữa nội dung và viền */
+            margin: 0; /* Loại bỏ margin mặc định */
+        }
+
+        .tab-item-content {
+            background-color: #f8f9fa;
+        }
+
+        .property-more-table {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .left-table, .right-table {
+            width: 400px;
+            border-collapse: collapse;
+            background-color: #ffffff;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+        }
+
+            .left-table td, .right-table td {
+                color: black;
+                padding: 10px;
+                border: 1px solid #ced4da;
+            }
+
+        .pt-name {
+            font-weight: bold;
+            color: white;
+        }
+
+        .p-value {
+            color: #495057;
+        }
+    </style>
+</head>
+<body>
+    @{ var khachhang = Session["TaiKhoan"] as Hotel20.Models.Customer; }
+    <header class="header">
+        <nav>
+            <div class="nav__bar">
+                <div class="logo">
+                    <a href="#"><img src="~/Images/logo.png" alt="logo" /></a>
+                </div>
+                <div class="nav__menu__btn" id="menu-btn">
+                    <i class="ri-menu-line"></i>
+                </div>
+            </div>
+            <ul class="nav__links" id="nav-links" style="position: absolute;margin-left:140px;">
+                <li style="margin-left:20px;"><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#service">Services</a></li>
+                <li><a href="#explore">Explore</a></li>
+                <li><a href="#contact">Contact</a></li>
+
+                <li>
+                    @{
+                        if (khachhang == null)
+                        {
+
+                        }
+                        else
+                        {
+                            <span class="nav-link welcome-message"> @khachhang.NameCus</span>
+
+                        }
+                    }
+                </li>
+              
+                <a href="@Url.Action("Register","Users")" style="padding: 0.9rem 1.5rem; outline: none;border: none;font-size: 16px;font-weight: 500; border-radius: 5px; cursor: pointer; transition: 0.3s;margin-left:100px;">Đăng kí</a>
+            </ul>
+            <!--<button class="btn nav__btn">Book Now</button>*/-->
+            <ul class="nav__links" id="nav-links" style="position: absolute;margin-top:5px;">
+
+                <li><a href="@Url.Action("Login","Users")" style="padding: 0.5rem 1.2rem; outline: none;border: none;font-size: 1rem;font-weight: 500;color: var(--white);background-color: var(--primary-color); border-radius: 5px; cursor: pointer; transition: 0.3s;margin-left:1000px;">Đăng nhập</a></li>
+
+
+            </ul>
+
+        </nav>
+        <div class="section__container header__container" id="home">
+            <p>Simple - Unique - Friendly</p>
+            <h1>Make Yourself At Home<br />In Our <span>Hotel</span>.</h1>
+        </div>
+    </header>
+    <section class="section__container about__container" id="about">
+        <div class="about__image">
+            <img src="~/Images/about.jpg" alt="about" />
+        </div>
+        <div class="about__content">
+            <p class="section__subheader">ABOUT US</p>
+            <h2 class="section__header">The Best Holidays Start Here!</h2>
+            <p class="section__description">
+                With a focus on quality accommodations, personalized experiences, and
+                seamless booking, our platform is dedicated to ensuring that every
+                traveler embarks on their dream holiday with confidence and
+                excitement.
+            </p>
+            <div class="about__btn">
+                <button class="btn">Read More</button>
+            </div>
+        </div>
+    </section>
+    <div class="container main" style="margin-top:20px;margin-left:50px;">
+        <article>
+            <p class="section__subheader">OUR LIVING ROOM</p>
+            <h2 class="section__header">The Most Memorable Rest Time Starts Here.</h2>
+
+
+            <section class="detail_sp">
+                <div class="detail_img">
+                    <img src="~/Images/@Model.ImagePro" alt="@Model.NamePro" style="height:320px;object-fit:cover;width:320px;border-radius:3px;">
+                </div>
+                <div class="detail_nd">
+                    <h3>Tên :@Model.NamePro</h3>
+                    <p class="price_product">Giá :@Model.Price VNĐ</p>
+                    <p class="detail_ndct">
+                        Mô tả:  @Model.DecriptionPro
+                    </p>
+                    <p class="detail_ndct">
+                        @Model.Giuong giường
+                    </p>
+                    <p class="detail_ndct">
+                        Sức chứa @Model.SucChua
+                    </p>
+                    <p class="detail_ndct">
+                        Sức chứa @Model.BookingStatus
+                    </p>
+                    <span class="detail_soLuong">Còn: @Model.Quantity phòng</span>
+                    <br>
+                    <button class="btn btn-primary order-btn" data-url="@Url.Action("AddToCart", "Cart", new { id = Model.ProductID })" style="background-color:white;border:1px solid black;color:black;">Thêm vào giỏ hàng</button>
+                    <button class="btn btn-primary order-btn" data-url="@Url.Action("Create","OrderRooms", new { id = Model.ProductID })">Đặt phòng</button>
+                </div>
+            </section>
+            <br>
+            <hr>
+            <!--thông tin sản phẩm, chi tiết về sản phẩm -->
+            <section class="info_sanPham">
+                <p class="ttsp">Thông tin sản phẩm</p>
+                <p class="ttsp">Bình luận</p>
+
+            </section>
+            <div class="bai_viet" ">
+                <h2 style="text-align:center;">@Model.NamePro</h2>
+
+                <img src="~/Images/@Model.ImagePro1" alt="">
+                <img src="~/Images/@Model.ImagePro2 " alt="">
+
+
+                <!-- thêm video vào website -->
+
+
+                <div class="pd-details-tab">
+                    <div class="tab-item">
+                        <ul class="nav" role="tablist">
+                            <li>
+                                <a class="active" data-toggle="tab" href="#tab-1" role="tab" style="background-color: #2cbdb8;">Overview</a>
+                            </li>
+                            <li>
+                                <a data-toggle="tab" href="#tab-2" role="tab">Description</a>
+                            </li>
+                            <li>
+                                <a data-toggle="tab" href="#tab-3" role="tab">Amenities</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="tab-item-content">
+                        <div class="tab-content">
+                            <div class="tab-pane fade-in active" id="tab-1" role="tabpanel">
+                                <div class="property-more-table">
+                                    <table class="left-table">
+                                        <tbody>
+                                            <tr>
+                                                <td class="pt-name">Price</td>
+                                                <td class="p-value">$ 138,000</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="pt-name">Property Type</td>
+                                                <td class="p-value">Villa</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="pt-name">Year Built</td>
+                                                <td class="p-value">2016</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="pt-name">Bathrooms</td>
+                                                <td class="p-value">3</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="pt-name">Rooms</td>
+                                                <td class="p-value">12</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="pt-name">Parking lots</td>
+                                                <td class="p-value">3</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="pt-name">Lot area</td>
+                                                <td class="p-value">200 spft</td>
+                                            </tr>
+
+
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="tab-2" role="tabpanel">
+                                <div class="pd-table-desc">
+                                    <p>
+                                        Learn how to improve your playing quality and even overall understanding
+                                        of online gaming and how you perform while playing online. Gaming online
+                                        is a huge business nowadays and that means that there are millions of
+                                        people worldwide at online game sites all the time. Many are people just
+                                        like you and me that like to play online and have fun doing it. Some of
+                                        these people enjoy it so much, that they often do not even care about
+                                        improving their skill and raising their chances of winning.
+                                    </p>
+                                    <p>
+                                        Learn how to improve your playing quality and even overall understanding
+                                        of online gaming and how you perform while playing online. Gaming online
+                                        is a huge business nowadays and that means that there are millions of
+                                        people worldwide at online game sites all the time. Many are people just
+                                        like you and me that like to play online and have fun doing it. Some of
+                                        these people enjoy it so much, that they often do not even care about
+                                        improving their skill and raising their chances of winning.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="tab-3" role="tabpanel">
+                                <div class="pd-table-amenities">
+                                    <p>
+                                        Learn how to improve your playing quality and even overall understanding
+                                        of online gaming and how you perform while playing online. Gaming online
+                                        is a huge business nowadays and that means that there are millions of
+                                        people worldwide at online game sites all the time. Many are people just
+                                        like you and me that like to play online and have fun doing it. Some of
+                                        these people enjoy it so much, that they often do not even care about
+                                        improving their skill and raising their chances of winning.
+                                    </p>
+                                    <p>
+                                        Learn how to improve your playing quality and even overall understanding
+                                        of online gaming and how you perform while playing online. Gaming online
+                                        is a huge business nowadays and that means that there are millions of
+                                        people worldwide at online game sites all the time. Many are people just
+                                        like you and me that like to play online and have fun doing it. Some of
+                                        these people enjoy it so much, that they often do not even care about
+                                        improving their skill and raising their chances of winning.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="property-contactus" ">
+                                <h4>Contact Us</h4>
+                                <div class="row" style="display:flex;">
+                                    <div class="col-lg-5">
+                                        <div class="agent-desc">
+                                            <img src="~/Images/anh17.jpg" style="width:200px;height:200px;" alt="">
+                                            <div class="agent-title">
+                                                <h5>Adam Smith</h5>
+                                                <span>Saler Marketing</span>
+                                            </div>
+                                            <div class="agent-social">
+                                                <a href="#"><i class="fa fa-facebook"></i></a>
+                                                <a href="#"><i class="fa fa-twitter"></i></a>
+                                                <a href="#"><i class="fa fa-google-plus"></i></a>
+                                                <a href="#"><i class="fa fa-envelope"></i></a>
+                                            </div>
+                                            <p>
+                                                In today’s net-savvy world it has become common for any business to have a
+                                                website which they use mostly for advertising their products and services.
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- bài viết -->
+
+        </article>
+
+
+
+
+
+        <!-- aside bar -->
+        <aside>
+            <div class="aside_widget">
+                <h3 style=" background-color: #2cbdb8;">DANH MỤC</h3>
+                <ul style="list-style:none;">
+                    <li><a href="san_pham.html">SẢN PHẨM</a></li>
+                    <li class="danh_muc_active"><a href=""> CẢM NHẬN SẢN PHẨM</a></li>
+                    <li><a href="xu_huong.html">XU HƯỚNG</a></li>
+                    <li><a href="thanh_toan.html">THANH TOÁN</a></li>
+                </ul>
+            </div>
+            <!--danh mục-->
+            <div class="banner_qc">
+                <a href="#"> <img src="./images/banner-02.png" alt=""></a>
+            </div><!-- banner quảng cáo-->
+
+
+            <div class="aside_widget">
+                <h3 style=" background-color: #2cbdb8;">
+                    SẢN PHẨM BÁN CHẠY <h3 />
+                    <ul class="ban_chay" style="background-color:white;">
+                        <!-- sản phẩm 1 -->
+                        <li>
+                            <a href="@Url.Action("GroupByTop5","TopYeuThich")" class="anh">
+                                <img src="~/Images/@Model.ImagePro1" alt="">
+                            </a>
+                            <div class="thong_tin">
+                                <p class="title_product">@Model.NamePro</p>
+                                <p class="price_product">255.000đ <span class="price_del">@Model.Price đ</span></p>
+                                <a href="@Url.Action("Details","Products")" class="detail">Chi tiết ></a>
+                            </div>
+                        </li>
+                        <!-- sản phẩm 2 -->
+
+                    </ul>
+            </div>
+            <!--Sản phẩm bán chạy-->
+
+        </aside>
+    </div>
+
+
+</body>
+<script>
+    $(document).ready(function () {
+        $('.order-btn').click(function () {
+            var url = $(this).data('url');
+            window.location.href = url;
+        });
+    });
+</script>

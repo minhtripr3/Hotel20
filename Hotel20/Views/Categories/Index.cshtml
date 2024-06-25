@@ -1,0 +1,106 @@
+﻿@model IEnumerable<Hotel20.Models.Category>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+
+    .recent_order {
+        width: 140%;
+        margin: auto;
+    }
+
+        .recent_order h2 {
+            font-size: 24px;
+            text-align: center;
+        }
+
+        .recent_order table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .recent_order th, .recent_order td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+            font-size: 18px;
+        }
+
+        .recent_order th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+
+        .recent_order tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .recent_order tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .recent_order a {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 1px;
+            background-color: #bc1c5c;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+            .recent_order a:hover {
+                background-color: #0056b3;
+            }
+</style>
+
+<div class="recent_order">
+
+    <h2>Danh Sách</h2>
+    @Html.ActionLink("Add Cate", "Create")
+    <table>
+        <thead>
+            <tr>
+                <th>
+                    Mã Sản Phẩm
+                </th>
+                <th>
+                    Tên Sản Phẩm
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IDCate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NameCate)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>
+
+
+
+
+
+
+
+
+<script src="~/Content/scripts.js"></script>

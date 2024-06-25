@@ -1,0 +1,245 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.0.0/fonts/remixicon.css"
+          rel="stylesheet" />
+
+
+
+
+    <meta name="viewport" content="width=device-width" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.0.0/fonts/remixicon.css"
+          rel="stylesheet" />
+    <link rel="stylesheet" href="~/Content/styles1.css" />
+    <meta name="viewport" content="width=device-width" />
+
+
+    <title>@ViewBag.Title</title>
+    <style>
+        .room-features {
+            display: flex;
+            flex-wrap: wrap;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+            .room-features li {
+                display: flex;
+                align-items: center;
+                margin-right: 20px;
+            }
+
+                .room-features li i {
+                    margin-right: 5px;
+                }
+
+                .room-features li p {
+                    margin: 0;
+                }
+
+                .room-features li:last-child {
+                    margin-right: 0;
+                }
+
+        .sidebar-btn {
+            display: flex;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .bt-item {
+            margin-right: 10px; /* Thêm khoảng cách giữa các nút nếu cần */
+        }
+
+            .bt-item label {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 126px;
+                height: 40px;
+                cursor: pointer;
+                background: #f0f0f0; /* Màu nền cho dễ nhìn */
+            }
+
+            .bt-item input:checked + label {
+                background: #2cbdb8;
+                color: #ffffff;
+            }
+
+        .property-sidebar .nice-select {
+            width: 100%;
+            height: 50px;
+            background: #F2F4F5;
+            border-radius: 0;
+            border: 1px solid #ebebeb;
+            line-height: 46px;
+            margin-bottom: 20px;
+        }
+
+        .custom-select {
+            width: 100px;
+            height: 40px;
+            margin-bottom: 10px; /* Thêm khoảng cách dưới nếu cần */
+        }
+
+        .sidebar-btn, .price-range-wrap, .search-property-wrap {
+            display: flex;
+        }
+
+        .bt-item, .price-text, .search-property-wrap {
+            width: 50%;
+            float: left;
+        }
+
+        .button-label {
+            display: inline-block;
+            width: 126px;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            cursor: pointer;
+            background: #2cbdb8; /* Bạn có thể thay đổi màu sắc tại đây nếu cần */
+            color: #ffffff; /* Màu chữ */
+            margin: 5px 0; /* Khoảng cách trên dưới */
+            border-radius: 5px; /* Bo góc nếu cần */
+        }
+
+        .search-btn {
+            background: #2cbdb8; /* Bạn có thể thay đổi màu sắc tại đây nếu cần */
+            color: #ffffff; /* Màu chữ */
+            width: 100%;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            cursor: pointer;
+            margin: 10px 0; /* Khoảng cách trên dưới */
+            border-radius: 5px; /* Bo góc nếu cần */
+            border: none; /* Xóa viền nút */
+        }
+
+        .ba-item {
+            display: flex; /* Sử dụng flexbox để căn chỉnh các phần tử con */
+            align-items: center; /* Căn dọc các phần tử con vào giữa */
+            text-decoration: none; /* Loại bỏ gạch chân mặc định cho các liên kết */
+            padding: 10px; /* Để có khoảng cách xung quanh các phần tử */
+        }
+
+        .ba-pic {
+            flex: 0 0 80px; /* Đặt kích thước cố định cho hình ảnh (rộng 80px, cao mặc định) */
+            margin-right: 10px; /* Để tạo khoảng cách giữa hình ảnh và văn bản */
+        }
+
+
+            .ba-pic img {
+                width: 100%; /* Để hình ảnh chiếm hết phần định sẵn của nó */
+                height: auto; /* Đảm bảo tỷ lệ hình ảnh tự động */
+            }
+
+        .ba-text {
+            flex: 1; /* Để phần văn bản chiếm phần còn lại của không gian */
+        }
+
+            .ba-text h5 {
+                margin: 0; /* Loại bỏ margin mặc định của tiêu đề */
+            }
+
+        .property-items {
+            margin: 5px 0; /* Để tạo khoảng cách giữa các mục văn bản */
+        }
+
+        .price-range-wrap {
+            width: 100%;
+            display: flex;
+            flex-direction: column; /* Xếp các phần tử theo chiều dọc */
+            gap: 10px; /* Khoảng cách giữa các phần tử */
+        }
+
+        .price-text {
+            display: flex;
+            flex-direction: column; /* Xếp các phần tử bên trong theo chiều dọc */
+        }
+
+            .price-text label {
+                margin-bottom: 5px; /* Khoảng cách giữa nhãn và input */
+            }
+
+        .search-btn {
+            margin-top: 10px; /* Khoảng cách trên của nút tìm kiếm */
+            padding: 0px 20px;
+            background-color: #e82574;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+            .search-btn:hover {
+                background-color: #d1145c;
+            }
+    </style>
+</head>
+<body>
+
+    <div>
+
+        @RenderBody()
+    </div>
+    <footer class="footer" id="contact">
+        <div class="section__container footer__container">
+            <div class="footer__col">
+                <div class="logo">
+                    <a href="#home"><img src="~/Images/logo.png" alt="logo" /></a>
+                </div>
+                <p class="section__description">
+                    Discover a world of comfort, luxury, and adventure as you explore
+                    our curated selection of hotels, making every moment of your getaway
+                    truly extraordinary.
+                </p>
+                <button class="btn">Book Now</button>
+            </div>
+            <div class="footer__col">
+                <h4>QUICK LINKS</h4>
+                <ul class="footer__links">
+                    <li><a href="#">Browse Destinations</a></li>
+                    <li><a href="#">Special Offers & Packages</a></li>
+                    <li><a href="#">Room Types & Amenities</a></li>
+                    <li><a href="#">Customer Reviews & Ratings</a></li>
+                    <li><a href="#">Travel Tips & Guides</a></li>
+                </ul>
+            </div>
+            <div class="footer__col">
+                <h4>OUR SERVICES</h4>
+                <ul class="footer__links">
+                    <li><a href="#">Concierge Assistance</a></li>
+                    <li><a href="#">Flexible Booking Options</a></li>
+                    <li><a href="#">Airport Transfers</a></li>
+                    <li><a href="#">Wellness & Recreation</a></li>
+                </ul>
+            </div>
+            <div class="footer__col">
+                <h4>CONTACT US</h4>
+                <ul class="footer__links">
+                    <li><a href="#">rayalpark@info.com</a></li>
+                </ul>
+                <div class="footer__socials">
+                    <a href="#"><img src="~/Images/facebook.png" alt="facebook" /></a>
+                    <a href="#"><img src="~/Images/instagram.png" alt="instagram" /></a>
+                    <a href="#"><img src="~/Images/youtube.png" alt="youtube" /></a>
+                    <a href="#"><img src="~/Images/twitter.png" alt="twitter" /></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer__bar">
+            Copyright © 2023 Web Design Mastery. All rights reserved.
+        </div>
+    </footer>
+</body>
+</html>

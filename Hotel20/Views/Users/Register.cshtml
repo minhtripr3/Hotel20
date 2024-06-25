@@ -1,0 +1,39 @@
+﻿
+@{
+    ViewBag.Title = "Register";
+    Layout = "~/Views/Shared/DangKi.cshtml";
+}
+
+<div class="container" id="container">
+    <div class="form-container sign-in">
+        @using (Html.BeginForm("Register", "Users"))
+        {
+            @Html.ValidationSummary(true)
+        <form>
+            <h1>Đăng Ký</h1>
+
+            <div class="social-icons">
+                <a href="https://accounts.google.com/v3/signin/identifier?continue=https%3A%2F%2Fwww.google.com.vn%2F%3Fhl%3Dvi&ec=GAZAmgQ&hl=vi&ifkv=AS5LTAS2Kao91NKrMyqHQXkyCdc5JzXgjv7wbCV-27ZzAHw-_0_9YDYHtUzD6f4_wCSdfiXhq4AFtA&passive=true&flowName=GlifWebSignIn&flowEntry=ServiceLogin&dsh=S-920809134%3A1717778038874674&ddm=0" class="icon"><i class="fa-brands fa-google-plus-g"></i></a>
+                <a href="https://www.facebook.com/?locale=vi_VN" class="icon"><i class="fa-brands fa-facebook-f"></i></a>
+                <a href="https://github.com/signup?ref_cta=Sign+up&ref_loc=header+logged+out&ref_page=%2F&source=header-home" class="icon"><i class="fa-brands fa-github"></i></a>
+                <a href="https://www.linkedin.com/login?fromSignIn=true&trk=guest_homepage-basic_nav-header-signin" class="icon"><i class="fa-brands fa-linkedin-in"></i></a>
+            </div>
+            <span>Nhanh tay đăng kí để nhận khuyến mãi! </span>
+            <input type="text" placeholder="Name" id="name" name="NameCus" required>
+            <input type="text" placeholder="Điện Thoại" id="phone" name="PhoneCus" required>
+            <input type="email" placeholder="Email" id="email" name="EmailCus" required>
+            <input type="text" placeholder="Địa chỉ" id="dress" name="DressCus" required>
+            <input type="text" placeholder="Thành phố" id="city" name="CityCus" required>
+            <input type="text" placeholder="Quốc gia" id="country" name="Country" required>
+            <input type="date" placeholder="Ngày Sinh" id="country" name="NgaySinh" required>
+            <input type="text" placeholder="Tài Khoản" id="taikhoan" name="TaiKhoan" required>
+            <input type="password" placeholder="Password" id="matkhau" name="MatKhau" required>
+            <input type="password" placeholder="ConFirmPassword" id="confirm" name="ConFirPassword" required>
+           
+            <button type="submit">Đăng Ký</button>
+
+        </form>
+        }
+
+    </div>
+</div>

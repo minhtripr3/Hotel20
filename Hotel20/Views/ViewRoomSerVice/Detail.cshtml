@@ -1,0 +1,309 @@
+﻿@model Hotel20.Models.RoomServiceViewModel
+@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Views/Shared/_main.cshtml";
+}
+
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.0.0/fonts/remixicon.css"
+          rel="stylesheet" />
+    <link rel="stylesheet" href="~/Content/bootstrap.min.css" />
+
+
+
+
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <style>
+        .nav__links a {
+            font-size: 20px;
+        }
+    </style>
+
+
+</head>
+<body>
+    @{ var khachhang = Session["TaiKhoan"] as Hotel20.Models.Customer; }
+    <header class="header">
+        <nav>
+            <div class="nav__bar">
+                <div class="logo">
+                    <a href="#"><img src="~/Images/logo.png" alt="logo" /></a>
+                </div>
+                <div class="nav__menu__btn" id="menu-btn">
+                    <i class="ri-menu-line"></i>
+                </div>
+            </div>
+            <ul class="nav__links" id="nav-links" style="position: absolute;">
+                <li style="margin-left:20px;"><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#service">Services</a></li>
+                <li><a href="#explore">Explore</a></li>
+                <li><a href="#contact">Contact</a></li>
+
+                <li>
+                    @{
+                        if (khachhang == null)
+                        {
+
+                        }
+                        else
+                        {
+                            <span class="nav-link welcome-message"> @khachhang.NameCus</span>
+
+                        }
+                    }
+                </li>
+                <li><a href="@Url.Action("Register","Users")" style="padding: 0.9rem 1.5rem; outline: none;border: none;font-size: 20px;font-weight: 500; border-radius: 5px; cursor: pointer; transition: 0.3s;margin-left:500px;">Đăng kí</a></li>
+            </ul>
+            <!--<button class="btn nav__btn">Book Now</button>*/-->
+            <ul class="nav__links" id="nav-links" style="position: absolute;margin-top:5px;">
+
+                <li><a href="@Url.Action("Login","Users")" style="padding: 0.9rem 1.5rem; outline: none;border: none;font-size: 1.5rem;font-weight: 500;color: var(--white);background-color: var(--primary-color); border-radius: 5px; cursor: pointer; transition: 0.3s;margin-left:1063px;">Đăng nhập</a></li>
+
+
+            </ul>
+
+        </nav>
+        <div class="section__container header__container" id="home">
+            <p>Simple - Unique - Friendly</p>
+            <h1>Make Yourself At Home<br />In Our <span>Hotel</span>.</h1>
+        </div>
+    </header>
+
+
+
+    <section class="property-section spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="property-sidebar" style="margin-bottom: 30px; overflow: hidden;">
+                        <h4>Search Property</h4>
+                        <form action="#" class="sidebar-search">
+                            <div class="sidebar-btn">
+                                <div class="bt-item" style="width: 50%; float: left;">
+                                    <input style="display: none; " type="radio" name="s-type" id="st-buy" checked>
+                                    <label for="st-buy" style="background: #2cbdb8; color: #ffffff;">Buy</label>
+                                </div>
+                                <div class="bt-item" style="width: 50%; float: left;">
+                                    <input style="display: none;" type="radio" name="s-type" id="st-rent">
+                                    <label for="st-rent">Rent</label>
+                                </div>
+                            </div>
+                            @using (Html.BeginForm("Detail", "ViewRoomSerVice", FormMethod.Get))
+                            {
+                                <div class="price-range-wrap">
+                                    <div class="price-text">
+                                        <label for="priceRangeP">Giá min:</label>
+                                        <input type="text" id="total" name="minPrice">
+                                    </div>
+                                    <div class="price-text">
+                                        <label for="priceRangeP">Giá tối đa:</label>
+                                        <input type="text" id="total" name="maxPrice">
+                                    </div>
+                                    <div id="price-range-P" class="slider"></div>
+                                </div>
+
+
+                                <input type="submit" style="text-align:center;" class="search-btn" value="Tìm kiếm" />
+                            }
+
+
+
+                        </form>
+                        <div class="best-agents">
+                            <h4>Best Agents</h4>
+                            @foreach (var sanpham in Model.Rooms)
+                            {
+                                <a href="@Url.Action("Details", "Products", new { id = sanpham.ProductID })" class="ba-item">
+                                    <div class="ba-pic">
+
+                                        <img src="~/Images/@sanpham.ImagePro1" alt="">
+
+                                    </div>
+                                    <div class="ba-text">
+                                        <h5>Lester Bradley</h5>
+                                        <span>Company Agents</span>
+                                        <p class="property-items">6 property </p>
+                                    </div>
+                                </a>
+
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-9">
+                    <h4 class="property-title">Property</h4>
+                    <div class="property-list">
+                        @foreach (var sanpham in Model.Rooms)
+                        {
+                            <div class="single-property-item" style=" display: flex; justify-content: space-between; list-style: none; padding: 0; margin: 0; padding-bottom: 40px; border-bottom: 1px solid #e5e5e5; margin-bottom: 40px;">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="property-pic">
+                                            <a href="@Url.Action("Details", "Products", new { id = sanpham.ProductID })">
+                                                <img src="~/Images/@sanpham.ImagePro1" alt="" style="min-width: 100%; height: 280px;">
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="property-text">
+                                            <div class="s-text" style="font-size: 10px; color: #ffffff; font-weight: 500; text-transform: uppercase; letter-spacing: 1px; background: #2cbdb8; display: inline-block; padding: 3px 20px;">For Sale</div>
+                                            <h5 class="r-title" style="font-size: 20px; color: #19191a; font-weight: 600; margin-top: 15px; margin-bottom: 16px;">@sanpham.NamePro</h5>
+                                            <div class="room-price">
+                                                <span>Start From:</span>
+                                                <h5 style="color: #2cbdb8; font-weight: 600; display: inline-block;">@sanpham.Price VNĐ</h5>
+                                            </div>
+                                            <div class="properties-location">
+                                                <i class="icon_pin" style="font-size: 14px; color: #19191a; margin-bottom: 15px;    "></i> @sanpham.DiaChi
+                                            </div>
+                                            <p style="margin-bottom: 18px;">
+                                                @sanpham.DecriptionPro
+                                            </p>
+                                            <ul class="room-features" style="list-style:none;">
+
+                                                <li>
+                                                    <i class="fa fa-bed"></i>
+                                                    <p>@sanpham.Giuong Bed Room</p>
+                                                </li>
+                                                <li>
+                                                    <i class="fa fa-bath"></i>
+                                                    <p>7 Baths Bed</p>
+                                                </li>
+                                                <li>
+                                                    <i class="fa fa-car"></i>
+                                                    <p>1 Garage</p>
+                                                </li>
+                                                <li>
+                                                    <i class="fa-solid fa-booth-curtain"></i>
+                                                    <p>Còn @sanpham.Quantity phòng</p>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        }
+
+                    </div>
+                    <div class="property-pagination">
+                        <a href="#">1</a>
+                        <a href="#">2</a>
+                        <a href="#">3</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <footer class="footer" id="contact">
+        <div class="section__container footer__container">
+            <div class="footer__col">
+                <div class="logo">
+                    <a href="#home"><img src="~/Images/logo.png" alt="logo" /></a>
+                </div>
+                <p class="section__description">
+                    Discover a world of comfort, luxury, and adventure as you explore
+                    our curated selection of hotels, making every moment of your getaway
+                    truly extraordinary.
+                </p>
+                <button class="btn">Book Now</button>
+            </div>
+            <div class="footer__col">
+                <h4>QUICK LINKS</h4>
+                <ul class="footer__links">
+                    <li><a href="#">Browse Destinations</a></li>
+                    <li><a href="#">Special Offers & Packages</a></li>
+                    <li><a href="#">Room Types & Amenities</a></li>
+                    <li><a href="#">Customer Reviews & Ratings</a></li>
+                    <li><a href="#">Travel Tips & Guides</a></li>
+                </ul>
+            </div>
+            <div class="footer__col">
+                <h4>OUR SERVICES</h4>
+                <ul class="footer__links">
+                    <li><a href="#">Concierge Assistance</a></li>
+                    <li><a href="#">Flexible Booking Options</a></li>
+                    <li><a href="#">Airport Transfers</a></li>
+                    <li><a href="#">Wellness & Recreation</a></li>
+                </ul>
+            </div>
+            <div class="footer__col">
+                <h4>CONTACT US</h4>
+                <ul class="footer__links">
+                    <li><a href="#">rayalpark@info.com</a></li>
+                </ul>
+                <div class="footer__socials">
+                    <a href="#"><img src="~/Images/facebook.png" alt="facebook" /></a>
+                    <a href="#"><img src="~/Images/instagram.png" alt="instagram" /></a>
+                    <a href="#"><img src="~/Images/youtube.png" alt="youtube" /></a>
+                    <a href="#"><img src="~/Images/twitter.png" alt="twitter" /></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer__bar">
+            Copyright © 2023 Web Design Mastery. All rights reserved.
+        </div>
+    </footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <!-- Owl Carousel JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.js"></script>
+
+    <!-- Your JavaScript -->
+    <script>
+        $(document).ready(function () {
+            $(".owl-carousel").owlCarousel({
+                items: 4,
+                loop: true,
+                margin: 10,
+                nav: true,
+                dots: false
+            });
+        });
+
+        document.addEventListener("DOMContentLoaded", function () {
+            // Image Thumbnail Click Event
+            const thumbs = document.querySelectorAll('.product-thumbs .pt');
+            const bigImage = document.querySelector('.product-big-img');
+
+            thumbs.forEach(thumb => {
+                thumb.addEventListener('click', function () {
+                    const bigImageUrl = thumb.getAttribute('data-imgbigurl');
+                    bigImage.src = bigImageUrl;
+                    thumbs.forEach(t => t.classList.remove('active'));
+                    thumb.classList.add('active');
+                });
+            });
+
+            // Tabs Navigation
+            const tabs = document.querySelectorAll('.tab-item ul.nav li a');
+            const tabContents = document.querySelectorAll('.tab-content .tab-pane');
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function (event) {
+                    event.preventDefault();
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    const target = tab.getAttribute('href');
+                    tabContents.forEach(tc => {
+                        tc.classList.remove('fade-in', 'active');
+                        if (tc.getAttribute('id') === target.substring(1)) {
+                            tc.classList.add('fade-in', 'active');
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+
+    <script src="https://unpkg.com/scrollreveal"></script>
+    <script src="~/Content/scripts.js"></script>
+
+</body>
+

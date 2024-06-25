@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="98161609ddd64ad98b4f366045a58108" Name="Diagram1">
+        <EntityTypeShape EntityType="HotelDB10Models.AdminUser" Width="1.5" PointX="10.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HotelDB10Models.BookSerVice" Width="1.5" PointX="8" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="HotelDB10Models.Category" Width="1.5" PointX="0.75" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="HotelDB10Models.Customer" Width="1.5" PointX="3" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="HotelDB10Models.Discount" Width="1.5" PointX="10.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HotelDB10Models.Evaluation" Width="1.5" PointX="5.25" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="HotelDB10Models.OrderRoom" Width="1.5" PointX="8.25" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="HotelDB10Models.PhuThu" Width="1.5" PointX="10.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HotelDB10Models.Quanly" Width="1.5" PointX="10.5" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="HotelDB10Models.Room" Width="1.5" PointX="3" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HotelDB10Models.SerVice" Width="1.5" PointX="5.75" PointY="9.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="HotelDB10Models.sysdiagram" Width="1.5" PointX="12.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HotelDB10Models.Thue" Width="1.5" PointX="12.75" PointY="3.75" IsExpanded="true" />
+        <AssociationConnector Association="HotelDB10Models.FK__BookSerVi__IDSer__35BCFE0A" ManuallyRouted="false" />
+        <AssociationConnector Association="HotelDB10Models.FK_Pro_Category" ManuallyRouted="false" />
+        <AssociationConnector Association="HotelDB10Models.FK__Evaluatio__CusID__3A81B327" ManuallyRouted="false" />
+        <AssociationConnector Association="HotelDB10Models.FK__OrderRoom__CusID__2E1BDC42" ManuallyRouted="false" />
+        <AssociationConnector Association="HotelDB10Models.FK__Evaluatio__IDPro__3B75D760" ManuallyRouted="false" />
+        <AssociationConnector Association="HotelDB10Models.FK__OrderRoom__Produ__2D27B809" ManuallyRouted="false" />
+        <AssociationConnector Association="HotelDB10Models.FK__Quanly__IDOrder__31EC6D26" ManuallyRouted="false" />
+        <AssociationConnector Association="HotelDB10Models.FK__Quanly__IDProduc__30F848ED" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,333 @@
+﻿@model Hotel20.Models.RoomServiceViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_main.cshtml";
+}
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.0.0/fonts/remixicon.css"
+          rel="stylesheet" />
+    <link rel="stylesheet" href="~/Content/styles1.css" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    @{ var khachhang = Session["TaiKhoan"] as Hotel20.Models.Customer; }
+    <header class="header">
+        <nav>
+            <div class="nav__bar">
+                <div class="logo">
+                    <a href="#"><img src="~/Images/logo.png" alt="logo" /></a>
+                </div>
+                <div class="nav__menu__btn" id="menu-btn">
+                    <i class="ri-menu-line"></i>
+                </div>
+            </div>
+            <ul class="nav__links" id="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#service">Services</a></li>
+                <li><a href="#explore">Explore</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li class="nav-item">
+                    <a href="/TopYeuThich/GroupByTop5" class="nav-link">Yeu Thich</a>
+                </li>
+                <li>
+                    @{
+                        if (khachhang == null)
+                        {
+
+                        }
+                        else
+                        {
+
+                            <a class="nav-link" href="@Url.Action("Edit", "Customers", new { id = khachhang.IDCus })">@khachhang.NameCus</a>
+                        }
+                    }
+                </li>
+             
+
+
+
+
+            </ul>
+            <!--<button class="btn nav__btn">Book Now</button>*/-->
+            <ul class="nav__links" id="nav-links">
+                <a href="@Url.Action("Register", "Users")">Đăng Kí</a>
+                <a href="@Url.Action("Login","Users")" style="padding: 0.5rem 0.5rem; outline: none;border: none;font-size: 0.9rem;font-weight: 500;color: var(--white);background-color: var(--primary-color); border-radius: 5px; cursor: pointer; transition: 0.3s">Đăng nhập</a><
+
+
+            </ul>
+
+        </nav>
+        <div class="section__container header__container" id="home">
+            <p>Simple - Unique - Friendly</p>
+            <h1>Make Yourself At Home<br />In Our <span>Hotel</span>.</h1>
+        </div>
+    </header>
+
+
+
+    <section class="section__container booking__container">
+        <form action="/" class="booking__form">
+            <div class="input__group">
+                <span><i class="ri-calendar-2-fill"></i></span>
+                <div>
+                    <label for="check-in">CHECK-IN</label>
+                    <input type="date" placeholder="Check In" />
+                </div>
+            </div>
+            <div class="input__group">
+                <span><i class="ri-calendar-2-fill"></i></span>
+                <div>
+                    <label for="check-out">CHECK-OUT</label>
+                    <input type="date" placeholder="Check Out" />
+                </div>
+            </div>
+            <div class="input__group">
+                <span><i class="ri-user-fill"></i></span>
+                <div>
+                    <label for="guest">GUEST</label>
+                    <input type="text" placeholder="Guest" />
+                </div>
+            </div>
+            <div class="input__group input__btn">
+                <a href="@Url.Action("Detail", "ViewRoomSerVice")"> Tìm phòng</a>
+            </div>
+        </form>
+    </section>
+
+    <section class="section__container about__container" id="about">
+        <div class="about__image">
+            <img src="~/Images/about.jpg" alt="about" />
+        </div>
+        <div class="about__content">
+            <p class="section__subheader">ABOUT US</p>
+            <h2 class="section__header">The Best Holidays Start Here!</h2>
+            <p class="section__description">
+                With a focus on quality accommodations, personalized experiences, and
+                seamless booking, our platform is dedicated to ensuring that every
+                traveler embarks on their dream holiday with confidence and
+                excitement.
+            </p>
+            <div class="about__btn">
+                <button class="btn">Read More</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="section__container room__container">
+        <p class="section__subheader">OUR LIVING ROOM</p>
+        <h2 class="section__header">The Most Memorable Rest Time Starts Here.</h2>
+        <div class="room__grid">
+            @{ var top3room = Model.Rooms.Take(6); }
+
+            @foreach (var sanpham in top3room)
+            {
+
+                <div class="room__card">
+                    <div class="room__card__image">
+                        <a href="@Url.Action("Details", "Products", new { id = sanpham.ProductID })">
+                            <img src="~/Images/@sanpham.ImagePro" alt="room" />
+                        </a>
+                        <div class="room__card__icons">
+                            <span><i class="ri-paint-fill"></i></span>
+                            <span><i class="ri-paint-fill"></i></span>
+                            <span><i class="ri-shield-star-line"></i></span>
+                        </div>
+                    </div>
+                    <div class="room__card__details">
+                        <h4>@sanpham.NamePro</h4>
+                        <p style=" display: -webkit-box; -webkit-line-clamp: 5; /* Giới hạn số dòng là 5 */ -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; max-height: calc(1.2em * 5); /* Chiều cao tối đa tương ứng với 5 dòng (1.2em là chiều cao mỗi dòng) */ line-height: 1.2em; /* Chiều cao mỗi dòng */">
+                            @sanpham.DecriptionPro
+                        </p>
+                        <h5>Chỉ với <span>@sanpham.Price VNĐ/đêm</span></h5>
+                        <button class="btn btn-primary order-btn" data-url="@Url.Action("AddToCart","Cart", new { id = sanpham.ProductID })" style="background-color:white;border:1px solid black;color:black;">Thêm vào giỏ hàng</button>
+
+                        <button class="btn btn-primary order-btn" data-url="@Url.Action("Create","OrderRooms", new { id = sanpham.ProductID })">Đặt phòng</button>
+
+
+                    </div>
+                </div>
+
+
+
+            }
+            <!-- <div class="room__card">
+                <div class="room__card__image">
+                    <img src="~/Images/room-2.jpg" alt="room" />
+                    <div class="room__card__icons">
+                        <span><i class="ri-heart-fill"></i></span>
+                        <span><i class="ri-paint-fill"></i></span>
+                        <span><i class="ri-shield-star-line"></i></span>
+                    </div>
+                </div>
+                <div class="room__card__details">
+                    <h4>Executive Cityscape Room</h4>
+                    <p>
+                        Experience urban elegance and modern comfort in the heart of the
+                        city.
+                    </p>
+                    <h5>Starting from <span>$199/night</span></h5>
+                    <button class="btn">Book Now</button>
+                </div>
+            </div>
+            <div class="room__card">
+                <div class="room__card__image">
+                    <img src="~/Images/room-3.jpg" alt="room" />
+                    <div class="room__card__icons">
+                        <span><i class="ri-heart-fill"></i></span>
+                        <span><i class="ri-paint-fill"></i></span>
+                        <span><i class="ri-shield-star-line"></i></span>
+                    </div>
+                </div>
+                <div class="room__card__details">
+                    <h4>Family Garden Retreat</h4>
+                    <p>
+                        Spacious and inviting, perfect for creating cherished memories
+                        with loved ones.
+                    </p>
+                    <h5>Starting from <span>$249/night</span></h5>
+                    <button class="btn">Book Now</button>
+                </div>
+            </div>-->
+        </div>
+    </section>
+    <section class="section__container room__container">
+        <p class="section__subheader">OUR LIVING ROOM</p>
+        <h2 class="section__header">The Most Memorable Rest Time Starts Here.</h2>
+        <div class="room__grid">
+            @{ var top3service = Model.Services.Take(3); }
+
+            @foreach (var sanpham in top3service)
+            {
+                <div class="room__card">
+                    <div class="room__card__image">
+                        <a href="@Url.Action("Create", "BookSerVice", new { id = sanpham.SerViceID })">
+                            <img src="~/Images/@sanpham.ImageSerVice" alt="room" />
+                        </a>
+
+                        <div class="room__card__icons">
+                            <span><i class="ri-heart-fill"></i></span>
+                            <span><i class="ri-paint-fill"></i></span>
+                            <span><i class="ri-shield-star-line"></i></span>
+                        </div>
+                    </div>
+                    <div class="room__card__details">
+                        <h4>@sanpham.NameSerVice</h4>
+                        <p>
+                            @sanpham.ServiceDescription
+                        </p>
+                        <h5>Chỉ với <span>@sanpham.PriceSerVice VNĐ</span></h5>
+                        <button class="btn">Đặt ngay</button>
+                    </div>
+                </div>
+
+            }
+
+            <div class="room__card">
+                <div class="room__card__image">
+                    <img src="~/Images/room-2.jpg" alt="room" />
+                    <div class="room__card__icons">
+                        <span><i class="ri-heart-fill"></i></span>
+                        <span><i class="ri-paint-fill"></i></span>
+                        <span><i class="ri-shield-star-line"></i></span>
+                    </div>
+                </div>
+                <div class="room__card__details">
+                    <h4>Executive Cityscape Room</h4>
+                    <p>
+                        Experience urban elegance and modern comfort in the heart of the
+                        city.
+                    </p>
+                    <h5>Starting from <span>$199/night</span></h5>
+                    <button class="btn">Book Now</button>
+                </div>
+            </div>
+            <div class="room__card">
+                <div class="room__card__image">
+                    <img src="~/Images/room-3.jpg" alt="room" />
+                    <div class="room__card__icons">
+                        <span><i class="ri-heart-fill"></i></span>
+                        <span><i class="ri-paint-fill"></i></span>
+                        <span><i class="ri-shield-star-line"></i></span>
+                    </div>
+                </div>
+                <div class="room__card__details">
+                    <h4>Family Garden Retreat</h4>
+                    <p>
+                        Spacious and inviting, perfect for creating cherished memories
+                        with loved ones.
+                    </p>
+                    <h5>Starting from <span>$249/night</span></h5>
+                    <button class="btn">Book Now</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="service" id="service">
+        <div class="section__container service__container">
+            <div class="service__content">
+                <p class="section__subheader">SERVICES</p>
+                <h2 class="section__header">Strive Only For The Best.</h2>
+                <ul class="service__list">
+                    <li>
+                        <span><i class="ri-shield-star-line"></i></span>
+                        High Class Security
+                    </li>
+                    <li>
+                        <span><i class="ri-24-hours-line"></i></span>
+                        24 Hours Room Service
+                    </li>
+                    <li>
+                        <span><i class="ri-headphone-line"></i></span>
+                        Conference Room
+                    </li>
+                    <li>
+                        <span><i class="ri-map-2-line"></i></span>
+                        Tourist Guide Support
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="section__container banner__container">
+        <div class="banner__content">
+            <div class="banner__card">
+                <h4>25+</h4>
+                <p>Properties Available</p>
+            </div>
+            <div class="banner__card">
+                <h4>350+</h4>
+                <p>Bookings Completed</p>
+            </div>
+            <div class="banner__card">
+                <h4>600+</h4>
+                <p>Happy Customers</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="explore" id="explore">
+        <p class="section__subheader">EXPLORE</p>
+        <h2 class="section__header">What's New Today.</h2>
+        <div class="explore__bg">
+            <div class="explore__content">
+                <p class="section__description">10th MAR 2023</p>
+                <h4>A New Menu Is Available In Our Hotel.</h4>
+                <button class="btn">Continue</button>
+            </div>
+        </div>
+    </section>
+
+
+
+    <script src="https://unpkg.com/scrollreveal"></script>
+    <script src="~/Content/scripts.js"></script>
+
+</body>
+

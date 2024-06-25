@@ -1,0 +1,61 @@
+﻿@model Hotel20.Models.Room
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div style="margin: 10px auto; width: 600px; height: 1209px; background-color: #ffffff; padding: 20px; border-radius: 10px; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); border: 1px solid #e82574;">
+    <h2 style="text-align: center; color: #333333; font-size: 1rem;">BẠN MUỐN XÓA PHÒNG NÀY</h2>
+    <div>
+        <hr />
+
+        <dl class="dl-horizontal" style="font-size: 1rem;">
+            <dt style="color: #e82574;">Tên Khách Sạn</dt>
+            <dd>@Html.DisplayFor(model => model.NamePro)</dd>
+
+            <dt style="color: #e82574;">Mô Tả</dt>
+            <dd>@Html.DisplayFor(model => model.DecriptionPro)</dd>
+
+            <dt style="color: #e82574;">GIÁ</dt>
+            <dd>@Html.DisplayFor(model => model.Price)</dd>
+
+            <dt style="color: #e82574;">NHÓM SẢN PHẨM</dt>
+            <dd>@Html.DisplayFor(model => model.Category1.NameCate)</dd>
+
+            <dt style="color: #e82574;">HÌNH KHÁCH SẠN </dt>
+            <dd><img src="~/Images/@Model.ImagePro" style="width: 300px; height: 200px; object-fit: cover; border-radius: 5px;"></dd>
+            <dt style="color: #e82574;">HÌNH KHÁCH SẠN 1</dt>
+            <dd><img src="~/Images/@Model.ImagePro1" style="width: 300px; height: 200px; object-fit: cover; border-radius: 5px;"></dd>
+            <dt style="color: #e82574;">HÌNH KHÁCH SẠN 2</dt>
+            <dd><img src="~/Images/@Model.ImagePro2" style="width: 300px; height: 200px; object-fit: cover; border-radius: 5px;"></dd>
+
+            <dt style="color: #e82574;">Trạng Thái</dt>
+            <dd>@Html.DisplayFor(model => model.BookingStatus)</dd>
+
+            <dt style="color: #e82574;">Sức chứa</dt>
+            <dd>@Html.DisplayFor(model => model.SucChua)</dd>
+            <dt style="color: #e82574;">Ngày Phòng Trống</dt>
+            <dd>@Html.DisplayFor(model => model.Ngayphongtrong)</dd>
+            <dt style="color: #e82574;">Giường</dt>
+            <dd>@Html.DisplayFor(model => model.Giuong)</dd>
+            <dt style="color: #e82574;">Địa chỉ</dt>
+            <dd>@Html.DisplayFor(model => model.DiaChi)</dd>
+            <dt style="color: #e82574;">Trạng thái phòng 1</dt>
+            <dd>@Html.DisplayFor(model => model.BookingStatus1)</dd>
+            <dt style="color: #e82574;">Số lượng</dt>
+            <dd>@Html.DisplayFor(model => model.Quantity)</dd>
+        </dl>
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <div class="form-actions no-color" style="text-align: center; margin-top: 20px;">
+                <input type="submit" value="Xóa" class="btn btn-danger" style=" background-color: #e82574; border: none; padding: 10px 20px; /* Added padding */ color: white; /* Set text color to white */border-radius:3px;" />
+                <span style="margin: 0 10px;">|</span>
+                @Html.ActionLink("TRỞ LẠI", "Index")
+            </div>
+        }
+    </div>
+
+</div>
+
+

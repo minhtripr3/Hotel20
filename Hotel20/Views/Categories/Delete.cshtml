@@ -1,0 +1,87 @@
+﻿@model Hotel20.Models.Category
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .custom-container {
+        margin: 10px auto;
+        width: 700px;
+        height: 500px;
+        padding: 20px;
+        box-sizing: border-box;
+        border: 2px solid #FFFFFF; /* White border for easy visibility */
+        font-size: 18px; /* Larger font size */
+    }
+
+        .custom-container h3 {
+            text-align: center;
+            font-size: 24px; /* Even larger font for the heading */
+            margin-bottom: 20px;
+        }
+
+        .custom-container .form-actions {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .custom-container .btn-danger-custom {
+            border-radius: 3px;
+            font-weight: 500;
+            background-color: #e82574; /* Custom background color */
+            width: 70px; /* Custom width */
+            height: 40px; /* Custom height */
+            color: #FFFFFF; /* White text color */
+            border: none; /* Remove border */
+            font-size: 12px; /* Adjust font size to fit the button */
+            padding: 0; /* Remove padding */
+            display: inline-flex; /* Align text properly */
+            align-items: center; /* Center text vertically */
+            justify-content: center; /* Center text horizontally */
+            cursor: pointer; /* Pointer cursor on hover */
+        }
+
+        .custom-container dt {
+            margin-bottom: 10px;
+        }
+
+        .custom-container dd {
+            margin-bottom: 20px;
+        }
+
+        .custom-container hr {
+            border: 1px solid #FFFFFF;
+            margin: 20px 0;
+        }
+</style>
+
+<div class="custom-container">
+    <h3>
+        BẠN CÓ CHẮC CHẮN MUỐN XÓA CATEGORY NÀY?
+    </h3>
+    <div>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt style="color: #e82574;">
+                MÃ CATEGORY
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.IDCate)
+            </dd>
+            <dt style="color: #e82574;" ;>
+                TÊN CATEGORY
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.NameCate)
+            </dd>
+        </dl>
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(model => model.Id)
+            <div class="form-actions no-color">
+                <input type="submit" value="Xóa" class="btn btn-danger-custom" /> |
+                @Html.ActionLink("TRỞ LẠI", "Index", null, new { @class = "btn btn-secondary" })
+            </div>
+        }

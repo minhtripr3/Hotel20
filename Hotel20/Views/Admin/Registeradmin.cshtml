@@ -1,0 +1,25 @@
+﻿
+@{
+    ViewBag.Title = "Registeradmin";
+    Layout = "~/Views/Shared/Loginadmin.cshtml";
+}
+
+<div class="container">
+    <div class="myform">
+        @using (Html.BeginForm("Registeradmin", "Admin"))
+        {
+            @Html.ValidationSummary(true)
+            <form>
+                <h2>Đăng Ký Admin</h2>
+                <input type="text" placeholder="Admin Name" id="name" name="NameUser" required>
+                <input type="text" placeholder="Role admin" id="role" name="RoleUser" required>
+                <input type="password" placeholder="Password Admin" id="password" name="PasswordUser" required>
+                <button type="submit">Đăng Ký</button>
+            </form>
+        }
+    </div>
+    <div class="image">
+        <img src="~/Images/image.jpg">
+    </div>
+</div>
+

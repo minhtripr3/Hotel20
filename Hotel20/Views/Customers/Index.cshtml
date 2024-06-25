@@ -1,0 +1,126 @@
+﻿@model IEnumerable<Hotel20.Models.Customer>
+
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .table-container {
+        width: 1000px;
+        margin: 0 auto;
+    }
+
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+        .table th, .table td {
+            border: 1px solid #ff69b4; /* Pink color border */
+            text-align: center;
+            padding: 8px;
+        }
+
+        .table th {
+            background-color: #f2f2f2;
+        }
+
+    .action-links a {
+        color: #e82574;
+        padding: 5px 0px;
+        text-decoration: none;
+    }
+
+    .action-links1 a {
+        color: #e82574;
+        padding: 5px 10px;
+        text-decoration: none;
+        border-radius: 3px;
+        margin-right: 5px;
+        margin-bottom: 50px;
+    }
+
+    .action-links a:hover {
+        background-color: #d1145c;
+    }
+</style>
+
+<div class="table-container">
+    <h2>DANH SÁCH THÔNG TIN KHÁCH HÀNG</h2>
+
+
+
+    <table class="table">
+        <tr>
+            <th>
+                IDCus
+            </th>
+
+            <th>
+                Tên khách hàng
+            </th>
+            <th>
+                Số điện thoại
+            </th>
+            <th>
+                Email
+            </th>
+            <th>
+                Địa chỉ
+            </th>
+
+            <th>
+                Tài khoản
+            </th>
+            <th>
+                Mật khẩu
+            </th>
+            <th>
+                Ngày sinh
+            </th>
+
+
+            <th style="text-align:center;"> Lệnh</th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IDCus)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.NameCus)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PhoneCus)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EmailCus)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DressCus)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.TaiKhoan)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MatKhau)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NgaySinh)
+                </td>
+
+                <td class="action-links">
+                    @Html.ActionLink("Chi Tiết", "Details", new { id = item.IDCus }) |
+                    @Html.ActionLink("Sua", "Edit", new { id = item.IDCus }) |
+                    @Html.ActionLink("Xóa", "Delete", new { id = item.IDCus })
+                </td>
+            </tr>
+        }
+    </table>
+</div>

@@ -1,0 +1,212 @@
+﻿@model Hotel20.Models.OrderRoom
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_main.cshtml";
+}
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger" style="color:red;">
+        @TempData["ErrorMessage"]
+    </div>
+}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+function applyDiscount() {
+    // Lấy mã giảm giá từ trường input
+    var discountCode = $('#DiscountCode').val();
+
+    // Gửi yêu cầu Ajax để kiểm tra mã giảm giá
+    $.ajax({
+        url: '@Url.Action("CheckDiscount", "OrderRooms")',
+        type: 'GET',
+        data: { code: discountCode },
+        success: function(response) {
+            // Nếu mã giảm giá hợp lệ, cập nhật tổng giá
+            if (response.valid) {
+                var discountAmount = response.amount;
+                var currentTotal = parseFloat($('#OriginalTotal').val());
+                var newTotal = currentTotal * (1 - discountAmount / 100); // assuming discountAmount is in percentage
+                $('#Total').val(newTotal.toFixed(2)); // Cập nhật tổng giá trên giao diện
+            } else {
+                alert('Mã giảm giá không hợp lệ.');
+            }
+        },
+        error: function() {
+            alert('Đã xảy ra lỗi khi kiểm tra mã giảm giá.');
+        }
+    });
+}
+</script>
+
+<style>
+    .form-container {
+        width: 500px;
+        height: 960px;
+        margin: 10px auto;
+        color: black;
+        border: 1px solid #ff69b4; /* Pink border */
+        padding: 20px;
+        box-sizing: border-box;
+    }
+
+        .form-container h2 {
+            text-align: center;
+        }
+
+    .form-group {
+        margin-bottom: 15px;
+        font-size: 1rem; /* Increase font size */
+    }
+
+        .form-group span {
+            display: inline-block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .form-group .form-control {
+            width: calc(100% - 100px);
+            margin-left: 20px;
+            height: 30px; /* Increase height */
+        }
+
+        .form-group input[type="file"] {
+            width: 100%;
+            height: 30px; /* Increase height */
+        }
+
+    .btn-primary {
+        background-color: #e82574;
+        border: 1px solid #ff69b4; /* Pink border */
+    }
+
+        .btn-primary:hover {
+            background-color: #d1145c;
+        }
+
+    .back-to-list {
+        font-size: 1rem;
+    }
+</style>
+
+<h2>Create</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>OrderRoom</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        @Html.HiddenFor(model => model.ProductID)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DateOrder, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DateOrder, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DateOrder, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.RoomName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.RoomName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.RoomName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.NameCus, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.NameCus, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.NameCus, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PhoneCus, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.PhoneCus, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PhoneCus, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DressCus, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DressCus, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DressCus, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Total, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Total, new { htmlAttributes = new { @class = "form-control", id = "OriginalTotal" } })
+                @Html.ValidationMessageFor(model => model.Total, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.StatusOrder, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.StatusOrder, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.StatusOrder, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CheckInDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.CheckInDate, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
+                @Html.ValidationMessageFor(model => model.CheckInDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CheckOutDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.CheckOutDate, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
+                @Html.ValidationMessageFor(model => model.CheckOutDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.ThueID, "Thue", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.ThueID, (SelectList)ViewBag.ThueList, htmlAttributes: new { @class = "form-control", @readonly = "readonly" })
+                @Html.ValidationMessageFor(model => model.ThueID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <label for="DiscountCode" class="control-label col-md-2">Mã giảm giá:</label>
+            <div class="col-md-10">
+                <input type="text" id="DiscountCode" name="DiscountCode" class="form-control">
+                <button type="button" onclick="applyDiscount()" class="btn btn-default">Áp dụng</button>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="Total" class="control-label col-md-2">Tổng giá:</label>
+            <div class="col-md-10">
+                <input type="text" id="Total" name="Total" class="form-control" readonly>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

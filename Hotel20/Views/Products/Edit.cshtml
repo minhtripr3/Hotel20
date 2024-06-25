@@ -1,0 +1,230 @@
+﻿@model Hotel20.Models.Room
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .custom-container {
+        width: 600px;
+        border: 1px solid #e82574;
+        padding: 20px;
+        font-size: 1rem;
+        margin: 3rem auto;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+    }
+
+    .btn-primary {
+        background-color: #e82574;
+        border: none;
+        padding: 10px 20px;
+        color: white;
+    }
+
+    .img-thumbnail {
+        width: 100%;
+        height: auto;
+        max-width: 500px;
+        display: block;
+        margin: 10px auto;
+    }
+
+    .mt-5 {
+        margin-top: 3rem;
+    }
+
+    .mb-4 {
+        margin-bottom: 1.5rem;
+    }
+
+    .mt-2 {
+        margin-top: 0.5rem;
+    }
+
+    .text-center {
+        text-align: center;
+    }
+
+    .text-right {
+        text-align: right;
+    }
+
+    .form-group.row {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        padding: 15px;
+        border-radius: 5px;
+    }
+
+    .form-group .col-md-2 {
+        color: #e82574;
+        flex: 0 0 auto;
+        width: 20%;
+        padding-right: 15px;
+        border-right: 1px solid #ccc;
+    }
+
+    .form-group .col-md-10,
+    .form-group .col-md-8 {
+        flex: 1;
+        padding-left: 15px;
+    }
+
+    .form-control {
+        width: 100%;
+        height: 40px;
+    }
+
+    .image-container {
+        display: block;
+        text-align: center;
+    }
+
+    .form-control-file {
+        width: 100%;
+    }
+
+    .card {
+        border: none;
+        border-radius: 10px;
+    }
+</style>
+
+<div class="custom-container mt-5">
+    <h2 class="text-center mb-4">Chỉnh Sửa Phòng Khách Sạn</h2>
+    @using (Html.BeginForm("Edit", "Products", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="card shadow p-4">
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "alert alert-danger" })
+
+            @Html.HiddenFor(model => model.ProductID)
+
+            <div class="form-group row">
+                <label class="col-md-2 col-form-label">Tên Khách Sạn</label>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.NamePro, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.NamePro, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-md-2 col-form-label">Mô tả</label>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.DecriptionPro, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.DecriptionPro, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-md-2 col-form-label">Kiểu Loại Phòng</label>
+                <div class="col-md-10">
+                    @Html.DropDownList("Category", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Category, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-md-2 col-form-label">Giá</label>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-md-2 col-form-label">Hình Ảnh</label>
+                <div class="col-md-10 image-container">
+                    <img src="~/Images/@Model.ImagePro" class="mt-2 img-thumbnail" alt="Current Image" />
+                    <input type="file" name="ImagePro" class="form-control-file" />
+                    @Html.ValidationMessageFor(model => model.ImagePro, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-md-2 col-form-label">Hình Ảnh 1</label>
+                <div class="col-md-10 image-container">
+                    <img src="~/Images/@Model.ImagePro1" class="mt-2 img-thumbnail" alt="Current Image" />
+                    <input type="file" name="ImagePro1" class="form-control-file" />
+                    @Html.ValidationMessageFor(model => model.ImagePro1, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-md-2 col-form-label">Hình Ảnh 2</label>
+                <div class="col-md-10 image-container">
+                    <img src="~/Images/@Model.ImagePro2" class="mt-2 img-thumbnail" alt="Current Image" />
+                    <input type="file" name="ImagePro2" class="form-control-file" />
+                    @Html.ValidationMessageFor(model => model.ImagePro2, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+            <div class="form-group row">
+                <label class="col-md-2 col-form-label">Trạng thái</label>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.BookingStatus, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.BookingStatus, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-md-2 col-form-label">Sức Chứa</label>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.SucChua, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.SucChua, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-md-2 col-form-label">Ngày Phòng Trống</label>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Ngayphongtrong, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Ngayphongtrong, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-md-2 col-form-label">Giường</label>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Giuong, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Giuong, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-md-2 col-form-label">Địa chỉ</label>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.DiaChi, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.DiaChi, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-2 col-form-label">Booking Status</label>
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.BookingStatus1, ViewBag.BookingStatusList as List<SelectListItem>, "-- Select Booking Status --", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.BookingStatus1, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-2 col-form-label">Số lượng</label>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Quantity, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Quantity, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group row" style="border:none;">
+                <div class="col-md-10 offset-md-2">
+                    <input type="submit" value="LƯU" class="btn btn-primary" style="border-radius: 2px;" />|
+                    @Html.ActionLink("TRỞ LẠI", "Index", null, new { @class = "btn btn-secondary" })
+                </div>
+            </div>
+        </div>
+    }
+</div>

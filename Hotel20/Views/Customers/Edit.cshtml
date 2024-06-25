@@ -1,0 +1,127 @@
+﻿@model Hotel20.Models.Customer
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_main.cshtml";
+}
+
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+@{ var khachhang = Session["TaiKhoan"] as Hotel20.Models.Customer; }
+<header class="header">
+    <nav>
+        <div class="nav__bar">
+            <div class="logo">
+                <a href="#"><img src="~/Images/logo.png" alt="logo" /></a>
+            </div>
+            <div class="nav__menu__btn" id="menu-btn">
+                <i class="ri-menu-line"></i>
+            </div>
+        </div>
+        <ul class="nav__links" id="nav-links" style="position: absolute;">
+            <li style="margin-left:20px;"><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#service">Services</a></li>
+            <li><a href="#explore">Explore</a></li>
+            <li><a href="#contact">Contact</a></li>
+
+            <li>
+                @{
+                    if (khachhang == null)
+                    {
+                    }
+                    else
+                    {
+                        <span class="nav-link welcome-message"> @khachhang.NameCus</span>
+                    }
+                }
+            </li>
+        </ul>
+    </nav>
+    <div class="section__container header__container" id="home">
+        <p>Simple - Unique - Friendly</p>
+        <h1>Make Yourself At Home<br />In Our <span>Hotel</span>.</h1>
+    </div>
+</header>
+
+@using (Html.BeginForm("Edit", "Customers", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="container">
+        <div class="border p-4" style="border: 1px solid #ccc; border-radius: 10px;">
+            <h4 class="text-center">Customer Profile</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.IDCus)
+
+            <div class="row">
+              
+
+                <div class="col-md-4 mb-3">
+                    @Html.LabelFor(model => model.NameCus, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.NameCus, new { htmlAttributes = new { @class = "form-control", style = "width: 200px; height: 50px;" } })
+                    @Html.ValidationMessageFor(model => model.NameCus, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    @Html.LabelFor(model => model.PhoneCus, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.PhoneCus, new { htmlAttributes = new { @class = "form-control", style = "width: 200px; height: 50px;" } })
+                    @Html.ValidationMessageFor(model => model.PhoneCus, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    @Html.LabelFor(model => model.EmailCus, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.EmailCus, new { htmlAttributes = new { @class = "form-control", style = "width: 200px; height: 50px;" } })
+                    @Html.ValidationMessageFor(model => model.EmailCus, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    @Html.LabelFor(model => model.DressCus, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.DressCus, new { htmlAttributes = new { @class = "form-control", style = "width: 200px; height: 50px;" } })
+                    @Html.ValidationMessageFor(model => model.DressCus, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    @Html.LabelFor(model => model.CityCus, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.CityCus, new { htmlAttributes = new { @class = "form-control", style = "width: 200px; height: 50px;" } })
+                    @Html.ValidationMessageFor(model => model.CityCus, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    @Html.LabelFor(model => model.Country, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.Country, new { htmlAttributes = new { @class = "form-control", style = "width: 200px; height: 50px;" } })
+                    @Html.ValidationMessageFor(model => model.Country, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    @Html.LabelFor(model => model.TaiKhoan, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.TaiKhoan, new { htmlAttributes = new { @class = "form-control", style = "width: 200px; height: 50px;" } })
+                    @Html.ValidationMessageFor(model => model.TaiKhoan, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    @Html.LabelFor(model => model.MatKhau, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.MatKhau, new { htmlAttributes = new { @class = "form-control", style = "width: 200px; height: 50px;" } })
+                    @Html.ValidationMessageFor(model => model.MatKhau, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    @Html.LabelFor(model => model.NgaySinh, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.NgaySinh, new { htmlAttributes = new { @class = "form-control", style = "width: 200px; height: 50px;" } })
+                    @Html.ValidationMessageFor(model => model.NgaySinh, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group text-center">
+                <input type="submit" value="Lưu" class="btn btn-primary" style=" background-color: #e82574;" />
+            </div>
+        </div>
+    </div>
+}
+
+<!-- Include Bootstrap JS for better compatibility -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
